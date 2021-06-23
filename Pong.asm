@@ -1,8 +1,24 @@
+;PONG Game Application
+;Written by Ben Tierney, last update 23/06/2021
+
+;Introduction:
+;The purpose of this code is to run a PONG game
+
+;Methodology:
+;The code is broken down into the following sections
+
+;Variables:
+;
+
 STACK SEGMENT PARA STACK
 	DB 64 DUP (' ')
 STACK ENDS
 
 DATA SEGMENT PARA 'DATA'
+
+	WINDOW_WIDTH DW 140h	;width of window (320 pixels)
+	WINDOW_HEIGHT DW 0C8h	;height of window (200 pixels)
+	WINDOW_BOUNDS DW 6		;variable used to check collisions early
 
 	TIME_AUX DB 0	;variable used when checking if time has changed
 
@@ -50,12 +66,43 @@ CODE SEGMENT PARA 'CODE'
 	MAIN ENDP
 	
 	MOVE_BALL PROC NEAR
+	
 		MOV AX,BALL_VELOCITY_X
-		ADD BALL_X,AX
+		ADD BALL_X,AX				;move ball horizontal
+		
+		MOV AX, WINDOW_BOUNDS
+		CMP BALL_X,AX
+		JL NEG_VELOCITY_X			;BALL_X < 0 + WINDOW_BOUNDS (Y -> collided)
+		
+		MOV AX,WINDOW_WIDTH
+		SUB AX,BALL_SIZE
+		SUB AX, WINDOW_BOUNDS
+		CMP BALL_X,AX				;BALL_X > WINDOW_WIDTH - BALL_SIZE - WINDOW_BOUNDS(Y -> collided)
+		JG NEG_VELOCITY_X
+		
 		MOV AX,BALL_VELOCITY_Y
-		ADD BALL_Y,AX
+		ADD BALL_Y,AX				;move ball vertically
+		
+		MOV AX, WINDOW_BOUNDS
+		CMP BALL_Y,AX
+		JL NEG_VELOCITY_Y			;BALL_Y < 0 + WINDOW_BOUNDS (Y -> collided)
+		
+		MOV AX,WINDOW_HEIGHT
+		SUB AX,BALL_SIZE
+		SUB AX, WINDOW_BOUNDS
+		CMP BALL_Y,AX				;BALL_Y > WINDOW_WIDTH - BALL_SIZE - WINDOW_BOUNDS(Y -> collided)
+		JG NEG_VELOCITY_Y
 			
 		RET
+		
+		NEG_VELOCITY_X:
+			NEG BALL_VELOCITY_X		;BALL_VELOCITY_X = - BALL_VELOCITY_X
+			RET
+			
+		NEG_VELOCITY_Y:
+			NEG BALL_VELOCITY_Y		;BALL_VELOCITY_Y = - BALL_VELOCITY_Y
+			RET
+		
 	MOVE_BALL ENDP
 	
 	DRAW_BALL PROC NEAR
