@@ -1,5 +1,5 @@
 ;PONG Game Application
-;Written by Ben Tierney, last update 23/06/2021
+;Written by Ben Tierney, last update 24/06/2021
 
 ;Introduction:
 ;The purpose of this code is to run a PONG game
@@ -29,6 +29,15 @@ DATA SEGMENT PARA 'DATA'
 	BALL_SIZE DW 04h		;siize of the ball (how many pixels does ball have in width and height)
 	BALL_VELOCITY_X DW 05h	;X (horizontal) velocity of the ball
 	BALL_VELOCITY_Y DW 02h	;Y (vertical) velocity of the ball
+	
+	PADDLE_LEFT_X DW 0Ah
+	PADDLE_LEFT_Y DW 0Ah
+	
+	PADDLE_RIGHT_X DW 130h
+	PADDLE_RIGHT_Y DW 0Ah
+	
+	PADDLE_WIDTH DW 05h
+	PADDLE_HEIGHT DW 1Fh
 
 DATA ENDS
 
@@ -61,6 +70,8 @@ CODE SEGMENT PARA 'CODE'
 			
 			CALL MOVE_BALL
 			CALL DRAW_BALL
+			
+			CALL DRAW_PADDLES
 			
 			JMP CHECK_TIME	;after everything checks time again
 	
@@ -130,7 +141,7 @@ CODE SEGMENT PARA 'CODE'
 			INT 10h					;execute the configuration
 			
 			INC CX					;CX = CX +1
-			MOV AX,CX				;CX - BALL_X ? BALL_SIZE (Y -> We go to the next line,N -> We continue to the next column)
+			MOV AX,CX				;CX - BALL_X > BALL_SIZE (Y -> We go to the next line,N -> We continue to the next column)
 			SUB AX,BALL_X
 			CMP AX,BALL_SIZE
 			JNG DRAW_BALL_HORIZONTAL
@@ -145,6 +156,57 @@ CODE SEGMENT PARA 'CODE'
 	
 		RET
 	DRAW_BALL ENDP
+	
+	DRAW_PADDLES PROC NEAR
+	
+		MOV CX,PADDLE_LEFT_X	;set the initial column (X)
+		MOV DX,PADDLE_LEFT_Y	;set the initial line (Y)
+		
+		DRAW_PADDLE_LEFT_HORIZONTAL:
+			MOV AH,0Ch				;set configuration to writing a pixel
+			MOV AL,0Fh				;choose white as colour
+			MOV BH,00h				;set page number
+			INT 10h					;execute the configuration
+			
+			INC CX					;CX = CX +1
+			MOV AX,CX				;CX - PADDLE_LEFT_X  PADDLE_WIDTH(Y -> We go to the next line,N -> We continue to the next column)
+			SUB AX,PADDLE_LEFT_X
+			CMP AX,PADDLE_WIDTH
+			JNG DRAW_PADDLE_LEFT_HORIZONTAL
+			
+			MOV CX,PADDLE_LEFT_X	;the CX register goes back to the initial column
+			INC DX					;we advance one line
+			
+			MOV AX,DX				;DX - PADDLE_LEFT_Y > PADDLE_HEIGHT (Y -> we exit this procedure,N -> we continue to the next line)
+			SUB AX,PADDLE_LEFT_Y
+			CMP AX,PADDLE_HEIGHT
+			JNG DRAW_PADDLE_LEFT_HORIZONTAL
+			
+		MOV CX,PADDLE_RIGHT_X	;set the initial column (X)
+		MOV DX,PADDLE_RIGHT_Y	;set the initial line (Y)
+		
+		DRAW_PADDLE_RIGHT_HORIZONTAL:
+			MOV AH,0Ch				;set configuration to writing a pixel
+			MOV AL,0Fh				;choose white as colour
+			MOV BH,00h				;set page number
+			INT 10h					;execute the configuration
+			
+			INC CX					;CX = CX +1
+			MOV AX,CX				;CX - PADDLE_RIGHT_X  PADDLE_WIDTH(Y -> We go to the next line,N -> We continue to the next column)
+			SUB AX,PADDLE_RIGHT_X
+			CMP AX,PADDLE_WIDTH
+			JNG DRAW_PADDLE_RIGHT_HORIZONTAL
+			
+			MOV CX,PADDLE_RIGHT_X	;the CX register goes back to the initial column
+			INC DX					;we advance one line
+			
+			MOV AX,DX				;DX - PADDLE_RIGHT_Y > PADDLE_HEIGHT (Y -> we exit this procedure,N -> we continue to the next line)
+			SUB AX,PADDLE_RIGHT_Y
+			CMP AX,PADDLE_HEIGHT
+			JNG DRAW_PADDLE_RIGHT_HORIZONTAL
+	
+		RET
+	DRAW_PADDLES ENDP
 	
 	CLEAR_SCREEN PROC NEAR
 		MOV AH,00h 	;set configuration to video mode
