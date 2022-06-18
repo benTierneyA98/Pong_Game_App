@@ -1,1 +1,58 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ben Tierney</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+  </head> 
+  <body>
+  <!---------- home page ----------->
+	<section class="header">
+		<nav>
+			<a href="index.html"><img src="https://raw.githubusercontent.com/benTierneyA98/testWebsite/master/images/HTML5_Logo_256.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="projects.html">PROJECTS</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+           <h1>Contact Me</h1>
+    </section>
+	
+	<!---------- Contact Me ----------->
+	
+	
+	
+<!-------- footer ---------->
+<section class="footer">
+       <h4>About Me</h4>
+       <p>I have always had an interest in programming and web design.<br>I have been coding since I started university circa 2015.</p>
+       <div class="icons">
+           <a href="https://www.linkedin.com/in/ben-tierney-341327211/"><i class="fa fa-linkedin"></i></a>
+           <a href="https://github.com/benTierneyA98"><i class="fa fa-github"></i></a>
+            
+       </div>
+			<a href="contact.html" class="footer-link"><p>made by Ben Tierney</p></a>
+</section>
 
+<!----JavaScript for toggle menu---->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script>     
+	
+  </body>
+</html>
