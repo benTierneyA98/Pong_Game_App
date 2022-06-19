@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ben Tierney - About Me</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+</head>
+<body>
+    <section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="https://raw.githubusercontent.com/benTierneyA98/testWebsite/master/images/HTML5_Logo_256.png"></a>
+            <div class="nav-links" id="navLinks">  
+                <i class="fa fa-close" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="projects.html">PROJECTS</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>   
+            <h1>About Me</h1>
+    </section>
+    
+    
+<!------- about me content -------->
+    
+<section class="about-us">
+    <div class="row">
+        <div class="about-col">
+            <h1>I am an experienced Software Engineer</h1>     
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque aliquet turpis nulla, eleifend faucibus est sollicitudin ut. Maecenas ut venenatis ex, et dapibus purus. Donec sit amet nisl non justo malesuada fermentum. Donec eget felis dolor. Suspendisse condimentum vestibulum ex ac cursus. Nam pharetra viverra efficitur. Sed pellentesque luctus arcu, quis finibus nibh luctus mattis.</p>
+            <a href="https://www.youtube.com/c/EasyTutorialsVideo?sub_confirmation=1" class="hero-btn red-btn">EXPOLER NOW</a>
+        </div>
+        <div class="about-col">
+            <img src="images/headshot.jpg">
+        </div>
+    </div>    
+</section>
+    
+<!-------- footer ---------->
+
+<section class="footer">
+       <h4>About Me</h4>
+       <p>I have always had an interest in programming and web design.<br>I have been coding since I started university circa 2015.</p>
+       <div class="icons">
+           <a href="https://www.linkedin.com/in/ben-tierney-341327211/"><i class="fa fa-linkedin"></i></a>
+           <a href="https://github.com/benTierneyA98"><i class="fa fa-github"></i></a>
+            
+       </div>
+			<a href="contact.html" class="footer-link"><p>made by Ben Tierney</p></a>
+</section>
+  
+  
+<!----JavaScript for toggle menu---->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script> 
+    
+</body>
+</html>    
