@@ -303,6 +303,23 @@ h3{
     border: 1px solid #ccc;
 }
 
+.hero-btn.red-btn{
+    border: 1px solid #f44336;
+    background: transparent;
+    color: #f44336;
+}
+.hero-btn.red-btn:hover{
+    border: 1px solid #f44336;
+    background: #f44336;
+    color: #fff;
+}
+.hero-btn.red-btn::after{
+    background: #f44336;
+}
+.hero-btn.red-btn::before{
+    background: #f44336;
+}
+
 .footer-link{
     text-decoration: none;
     color: #777;
