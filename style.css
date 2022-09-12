@@ -279,8 +279,7 @@ h3{
     color: #fff;
 }
 .sub-header h1{
-	position: absolute;
-	top: 50px;
+	margin-top: 0px;
 }
 .about-me{
     width: 80%;
